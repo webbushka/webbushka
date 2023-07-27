@@ -1,4 +1,4 @@
-### Hi there 👋
+![Webbushka's GitHub stats](https://github-readme-stats.vercel.app/api?username=webbushka&show=reviews&show_icons=true&theme=transparent&rank_icon=percentile)
 
 <!--
 **webbushka/webbushka** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
