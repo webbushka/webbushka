@@ -1,44 +1,41 @@
-<svg width="880" height="620" viewBox="0 0 880 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">GitHub profile stats for AJ Webb</title>
-  <desc id="desc">Profile summary with language and top repository charts generated from the GitHub API.</desc>
+<svg width="880" height="740" viewBox="0 0 880 740" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub profile stats</title>
+  <desc id="desc">Temporary placeholder until the stats workflow runs.</desc>
   <style>
     .bg { fill: #0b1220; stroke: #334155; stroke-width: 1; }
     .title { fill: #e2e8f0; font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .section { fill: #cbd5e1; font: 700 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
     .tile { fill: #111b2f; stroke: #334155; stroke-width: 1; }
     .tile-label { fill: #94a3b8; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
-    .tile-value { fill: #f8fafc; font: 700 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    .legend { fill: #cbd5e1; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    .repo { fill: #e2e8f0; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .tile-value { fill: #f8fafc; font: 700 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .muted { fill: #64748b; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .bar-bg { fill: #1e293b; }
     .bar { fill: #22d3ee; }
-    .bar-value { fill: #e2e8f0; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: end; }
-    .muted { fill: #64748b; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
   </style>
-  <rect class="bg" x="0.5" y="0.5" width="879" height="619" rx="14"/>
-  <text class="title" x="36" y="52">AJ Webb - GitHub Stats</text>
-  <text class="section" x="36" y="210">Language Breakdown</text>
-  <text class="section" x="36" y="404">Top Repositories by Stars</text>
-  <rect class="tile" x="36" y="84" width="152" height="84" rx="10"/><text class="tile-label" x="48" y="112">Followers</text><text class="tile-value" x="48" y="144">67</text>
-  <rect class="tile" x="200" y="84" width="152" height="84" rx="10"/><text class="tile-label" x="212" y="112">Following</text><text class="tile-value" x="212" y="144">98</text>
-  <rect class="tile" x="364" y="84" width="152" height="84" rx="10"/><text class="tile-label" x="376" y="112">Public Repos</text><text class="tile-value" x="376" y="144">106</text>
-  <rect class="tile" x="528" y="84" width="152" height="84" rx="10"/><text class="tile-label" x="540" y="112">Total Stars</text><text class="tile-value" x="540" y="144">159</text>
-  <rect class="tile" x="692" y="84" width="152" height="84" rx="10"/><text class="tile-label" x="704" y="112">Total Forks</text><text class="tile-value" x="704" y="144">66</text>
-  <rect x="36.00" y="236" width="494.31" height="20" fill="#22d3ee" rx="2"/>
-  <circle cx="44" cy="272" r="5" fill="#22d3ee"/><text class="legend" x="58" y="276">JavaScript - 61.2%</text>
-  <rect x="530.31" y="236" width="123.58" height="20" fill="#34d399" rx="2"/>
-  <circle cx="44" cy="294" r="5" fill="#34d399"/><text class="legend" x="58" y="298">CSS - 15.3%</text>
-  <rect x="653.88" y="236" width="85.55" height="20" fill="#f59e0b" rx="2"/>
-  <circle cx="44" cy="316" r="5" fill="#f59e0b"/><text class="legend" x="58" y="320">HTML - 10.6%</text>
-  <rect x="739.44" y="236" width="47.53" height="20" fill="#f43f5e" rx="2"/>
-  <circle cx="44" cy="338" r="5" fill="#f43f5e"/><text class="legend" x="58" y="342">TypeScript - 5.9%</text>
-  <rect x="786.96" y="236" width="28.52" height="20" fill="#a78bfa" rx="2"/>
-  <circle cx="44" cy="360" r="5" fill="#a78bfa"/><text class="legend" x="58" y="364">Python - 3.5%</text>
-  <rect x="815.48" y="236" width="28.52" height="20" fill="#60a5fa" rx="2"/>
-  <circle cx="44" cy="382" r="5" fill="#60a5fa"/><text class="legend" x="58" y="386">Ruby - 3.5%</text>
-  <text class="repo" x="36" y="430">atom-react-snippets</text><rect class="bar-bg" x="250" y="416" width="560" height="14" rx="7"/><rect class="bar" x="250" y="416" width="560.00" height="14" rx="7"/><text class="bar-value" x="820" y="430">146</text>
-  <text class="repo" x="36" y="464">jekyll-landing-pages</text><rect class="bar-bg" x="250" y="450" width="560" height="14" rx="7"/><rect class="bar" x="250" y="450" width="19.18" height="14" rx="7"/><text class="bar-value" x="820" y="464">5</text>
-  <text class="repo" x="36" y="498">LESS-Mixin-CSS-Star</text><rect class="bar-bg" x="250" y="484" width="560" height="14" rx="7"/><rect class="bar" x="250" y="484" width="7.67" height="14" rx="7"/><text class="bar-value" x="820" y="498">2</text>
-  <text class="repo" x="36" y="532">code-club-2019-website</text><rect class="bar-bg" x="250" y="518" width="560" height="14" rx="7"/><rect class="bar" x="250" y="518" width="3.84" height="14" rx="7"/><text class="bar-value" x="820" y="532">1</text>
-  <text class="repo" x="36" y="566">react-stuffs-slides</text><rect class="bar-bg" x="250" y="552" width="560" height="14" rx="7"/><rect class="bar" x="250" y="552" width="3.84" height="14" rx="7"/><text class="bar-value" x="820" y="566">1</text>
+  <rect class="bg" x="0.5" y="0.5" width="879" height="739" rx="14"/>
+  <text class="title" x="36" y="58">GitHub Stats</text>
+
+  <rect class="tile" x="36" y="96" width="152" height="92" rx="10"/>
+  <rect class="tile" x="200" y="96" width="152" height="92" rx="10"/>
+  <rect class="tile" x="364" y="96" width="152" height="92" rx="10"/>
+  <rect class="tile" x="528" y="96" width="152" height="92" rx="10"/>
+  <rect class="tile" x="692" y="96" width="152" height="92" rx="10"/>
+  <text class="tile-label" x="48" y="126">Status</text>
+  <text class="tile-value" x="48" y="160">Pending first run</text>
+
+  <text class="section" x="36" y="236">Language Breakdown</text>
+  <rect class="bar-bg" x="36" y="268" width="808" height="20" rx="2"/>
+  <rect class="bar" x="36" y="268" width="180" height="20" rx="2"/>
+  <rect x="216" y="268" width="130" height="20" fill="#34d399" rx="2"/>
+  <rect x="346" y="268" width="95" height="20" fill="#f59e0b" rx="2"/>
+  <text class="muted" x="36" y="334">Live language distribution appears after workflow execution.</text>
+
+  <text class="section" x="36" y="486">Top Repositories by Stars</text>
+  <rect class="bar-bg" x="260" y="510" width="550" height="16" rx="8"/>
+  <rect class="bar" x="260" y="510" width="360" height="16" rx="8"/>
+  <rect class="bar-bg" x="260" y="552" width="550" height="16" rx="8"/>
+  <rect class="bar" x="260" y="552" width="260" height="16" rx="8"/>
+  <rect class="bar-bg" x="260" y="594" width="550" height="16" rx="8"/>
+  <rect class="bar" x="260" y="594" width="170" height="16" rx="8"/>
+  <text class="muted" x="36" y="684">Workflow: .github/workflows/update-profile-stats.yml</text>
 </svg>
