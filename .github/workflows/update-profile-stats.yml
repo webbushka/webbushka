@@ -23,6 +23,7 @@ jobs:
       - name: Generate SVG stats card
         env:
           GITHUB_USERNAME: ${{ github.repository_owner }}
+          PRIVATE_STATS_TOKEN: ${{ secrets.PRIVATE_STATS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/generate_github_stats.py
 

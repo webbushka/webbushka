@@ -1,41 +1,40 @@
-<svg width="880" height="740" viewBox="0 0 880 740" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<svg width="760" height="560" viewBox="0 0 760 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
   <title id="title">GitHub profile stats</title>
   <desc id="desc">Temporary placeholder until the stats workflow runs.</desc>
   <style>
     .bg { fill: #0b1220; stroke: #334155; stroke-width: 1; }
-    .title { fill: #e2e8f0; font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .title { fill: #e2e8f0; font: 700 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .section { fill: #cbd5e1; font: 700 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
     .tile { fill: #111b2f; stroke: #334155; stroke-width: 1; }
-    .tile-label { fill: #94a3b8; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
-    .tile-value { fill: #f8fafc; font: 700 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    .muted { fill: #64748b; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    .bar-bg { fill: #1e293b; }
-    .bar { fill: #22d3ee; }
+    .tile-label { fill: #94a3b8; font: 600 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+    .tile-value { fill: #f8fafc; font: 700 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .donut-title { fill: #e2e8f0; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: middle; }
+    .muted { fill: #64748b; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
   </style>
-  <rect class="bg" x="0.5" y="0.5" width="879" height="739" rx="14"/>
-  <text class="title" x="36" y="58">GitHub Stats</text>
+  <rect class="bg" x="0.5" y="0.5" width="759" height="559" rx="14"/>
+  <text class="title" x="36" y="52">GitHub Stats</text>
 
-  <rect class="tile" x="36" y="96" width="152" height="92" rx="10"/>
-  <rect class="tile" x="200" y="96" width="152" height="92" rx="10"/>
-  <rect class="tile" x="364" y="96" width="152" height="92" rx="10"/>
-  <rect class="tile" x="528" y="96" width="152" height="92" rx="10"/>
-  <rect class="tile" x="692" y="96" width="152" height="92" rx="10"/>
-  <text class="tile-label" x="48" y="126">Status</text>
-  <text class="tile-value" x="48" y="160">Pending first run</text>
+  <rect class="tile" x="36" y="78" width="124" height="78" rx="10"/>
+  <rect class="tile" x="170" y="78" width="124" height="78" rx="10"/>
+  <rect class="tile" x="304" y="78" width="124" height="78" rx="10"/>
+  <rect class="tile" x="438" y="78" width="124" height="78" rx="10"/>
+  <rect class="tile" x="572" y="78" width="124" height="78" rx="10"/>
+  <text class="tile-label" x="46" y="104">Status</text>
+  <text class="tile-value" x="46" y="134">Pending first run</text>
 
-  <text class="section" x="36" y="236">Language Breakdown</text>
-  <rect class="bar-bg" x="36" y="268" width="808" height="20" rx="2"/>
-  <rect class="bar" x="36" y="268" width="180" height="20" rx="2"/>
-  <rect x="216" y="268" width="130" height="20" fill="#34d399" rx="2"/>
-  <rect x="346" y="268" width="95" height="20" fill="#f59e0b" rx="2"/>
-  <text class="muted" x="36" y="334">Live language distribution appears after workflow execution.</text>
+  <text class="section" x="36" y="188">Private Language Mix</text>
+  <rect x="36" y="214" width="688" height="20" rx="2" fill="#1e293b"/>
+  <rect x="36" y="214" width="180" height="20" rx="2" fill="#22d3ee"/>
+  <rect x="216" y="214" width="130" height="20" rx="2" fill="#34d399"/>
+  <rect x="346" y="214" width="95" height="20" rx="2" fill="#f59e0b"/>
 
-  <text class="section" x="36" y="486">Top Repositories by Stars</text>
-  <rect class="bar-bg" x="260" y="510" width="550" height="16" rx="8"/>
-  <rect class="bar" x="260" y="510" width="360" height="16" rx="8"/>
-  <rect class="bar-bg" x="260" y="552" width="550" height="16" rx="8"/>
-  <rect class="bar" x="260" y="552" width="260" height="16" rx="8"/>
-  <rect class="bar-bg" x="260" y="594" width="550" height="16" rx="8"/>
-  <rect class="bar" x="260" y="594" width="170" height="16" rx="8"/>
-  <text class="muted" x="36" y="684">Workflow: .github/workflows/update-profile-stats.yml</text>
+  <text class="section" x="36" y="390">Private Work Breakdown</text>
+  <text class="donut-title" x="150" y="412">Original vs Forked</text>
+  <circle cx="150" cy="450" r="42" fill="none" stroke="#22d3ee" stroke-width="13"/>
+  <text class="donut-title" x="380" y="412">Active in 90 Days</text>
+  <circle cx="380" cy="450" r="42" fill="none" stroke="#34d399" stroke-width="13"/>
+  <text class="donut-title" x="610" y="412">Open Issues</text>
+  <circle cx="610" cy="450" r="42" fill="none" stroke="#f59e0b" stroke-width="13"/>
+
+  <text class="muted" x="36" y="528">Set PRIVATE_STATS_TOKEN to enable anonymized private stats.</text>
 </svg>
