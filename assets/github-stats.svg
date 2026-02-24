@@ -24,16 +24,16 @@
 
   <text class="section" x="36" y="198">Private Work Breakdown</text>
 
-  <text class="donut-title" x="210" y="237">Language Mix</text>
+  <text class="donut-title" x="210" y="225">Language Mix</text>
   <circle cx="210" cy="285" r="42" fill="none" stroke="#22d3ee" stroke-width="13"/>
 
-  <text class="donut-title" x="550" y="237">Original vs Forked</text>
+  <text class="donut-title" x="550" y="225">Original vs Forked</text>
   <circle cx="550" cy="285" r="42" fill="none" stroke="#34d399" stroke-width="13"/>
 
-  <text class="donut-title" x="210" y="437">Active in 90 Days</text>
+  <text class="donut-title" x="210" y="425">Active in 90 Days</text>
   <circle cx="210" cy="485" r="42" fill="none" stroke="#f59e0b" stroke-width="13"/>
 
-  <text class="donut-title" x="550" y="437">Archived vs Active</text>
+  <text class="donut-title" x="550" y="425">Archived vs Active</text>
   <circle cx="550" cy="485" r="42" fill="none" stroke="#a78bfa" stroke-width="13"/>
 
   <text class="muted" x="36" y="638">Set PRIVATE_STATS_TOKEN to enable anonymized private stats.</text>

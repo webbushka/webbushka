@@ -119,8 +119,8 @@ def donut_svg(
             f'transform="rotate(-90 {cx} {cy})"/>'
         )
         legend.append(
-            f'<circle cx="{cx - 54}" cy="{cy + 66 + i * 18}" r="4" fill="{color}"/>'
-            f'<text class="legend" x="{cx - 44}" y="{cy + 70 + i * 18}">{escape(label)} {percentage(value, total)}</text>'
+            f'<circle cx="{cx - 54}" cy="{cy + 74 + i * 18}" r="4" fill="{color}"/>'
+            f'<text class="legend" x="{cx - 44}" y="{cy + 78 + i * 18}">{escape(label)} {percentage(value, total)}</text>'
         )
         offset += seg
 
@@ -158,7 +158,7 @@ def build_svg(
             cx, cy = positions[i]
             donut_arcs, donut_legend = donut_svg(cx, cy, data, PALETTE)
             donuts.append(
-                f'<text class="donut-title" x="{cx}" y="{cy - 48}">{escape(title)}</text>'
+                f'<text class="donut-title" x="{cx}" y="{cy - 60}">{escape(title)}</text>'
                 f"{donut_arcs}"
                 f"{donut_legend}"
             )
