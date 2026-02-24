@@ -92,8 +92,8 @@ def donut_svg(
     cy: int,
     data: list[tuple[str, int]],
     colors: list[str],
-    radius: int = 42,
-    width: int = 13,
+    radius: int = 56,
+    width: int = 16,
 ) -> tuple[str, str]:
     total = sum(v for _, v in data)
     if total <= 0:
@@ -107,9 +107,9 @@ def donut_svg(
     offset = 0.0
     arcs: list[str] = []
     legend: list[str] = []
-    legend_bullet_x = cx + radius + 24
+    legend_bullet_x = cx + radius + 26
     legend_text_x = legend_bullet_x + 12
-    legend_start_y = cy - 20
+    legend_start_y = cy - 28
     for i, (label, value) in enumerate(data):
         if value <= 0:
             continue
@@ -139,8 +139,8 @@ def build_svg(
 ) -> str:
     canvas_width = 760
     canvas_height = 660
-    output_width = 320
-    output_height = 278
+    output_width = 500
+    output_height = 435
     tile_y = 78
     tile_h = 78
     section_donut_y = 198
@@ -158,12 +158,12 @@ def build_svg(
 
     donuts: list[str] = []
     if donut_sets:
-        positions = [(160, 285), (430, 285), (160, 485), (430, 485)]
+        positions = [(150, 275), (420, 275), (150, 510), (420, 510)]
         for i, (title, data) in enumerate(donut_sets[:4]):
             cx, cy = positions[i]
             donut_arcs, donut_legend = donut_svg(cx, cy, data, PALETTE)
             donuts.append(
-                f'<text class="donut-title" x="{cx}" y="{cy - 60}">{escape(title)}</text>'
+                f'<text class="donut-title" x="{cx}" y="{cy - 72}">{escape(title)}</text>'
                 f"{donut_arcs}"
                 f"{donut_legend}"
             )
