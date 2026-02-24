@@ -14,7 +14,7 @@
   </style>
   <rect class="bg" x="0.5" y="0.5" width="759" height="659" rx="14"/>
   <text class="title" x="36" y="52">GitHub Stats</text>
-  <text class="section" x="36" y="198">Private Work Breakdown</text>
+  <text class="section" x="36" y="198">Project Breakdown</text>
 
   <rect class="tile" x="36" y="78" width="124" height="78" rx="10"/>
   <rect class="tile" x="170" y="78" width="124" height="78" rx="10"/>
@@ -26,19 +26,19 @@
 
   <text class="donut-title" x="210" y="225">Language Mix</text>
   <circle cx="210" cy="285" r="42" fill="none" stroke="#22d3ee" stroke-width="13"/>
-  <circle cx="264" cy="271" r="4" fill="#22d3ee"/><text class="legend" x="274" y="275">JS 40%</text>
+  <circle cx="282" cy="265" r="4" fill="#22d3ee"/><text class="legend" x="294" y="269">JS 40%</text>
 
   <text class="donut-title" x="550" y="225">Original vs Forked</text>
   <circle cx="550" cy="285" r="42" fill="none" stroke="#34d399" stroke-width="13"/>
-  <circle cx="430" cy="271" r="4" fill="#34d399"/><text class="legend" x="440" y="275">Original 80%</text>
+  <circle cx="478" cy="265" r="4" fill="#34d399"/><text class="legend" x="466" y="269" text-anchor="end">Original 80%</text>
 
   <text class="donut-title" x="210" y="425">Active in 90 Days</text>
   <circle cx="210" cy="485" r="42" fill="none" stroke="#f59e0b" stroke-width="13"/>
-  <circle cx="264" cy="471" r="4" fill="#f59e0b"/><text class="legend" x="274" y="475">Updated 65%</text>
+  <circle cx="282" cy="465" r="4" fill="#f59e0b"/><text class="legend" x="294" y="469">Updated 65%</text>
 
   <text class="donut-title" x="550" y="425">Archived vs Active</text>
   <circle cx="550" cy="485" r="42" fill="none" stroke="#a78bfa" stroke-width="13"/>
-  <circle cx="430" cy="471" r="4" fill="#a78bfa"/><text class="legend" x="440" y="475">Active 92%</text>
+  <circle cx="478" cy="465" r="4" fill="#a78bfa"/><text class="legend" x="466" y="469" text-anchor="end">Active 92%</text>
 
-  <text class="muted" x="36" y="638">Set PRIVATE_STATS_TOKEN to enable anonymized private stats.</text>
+  <text class="muted" x="36" y="638">Set a stats token secret to enable additional aggregates.</text>
 </svg>

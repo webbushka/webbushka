@@ -108,9 +108,15 @@ def donut_svg(
     offset = 0.0
     arcs: list[str] = []
     legend: list[str] = []
-    legend_bullet_x = cx + 54 if legend_side == "right" else cx - 120
-    legend_text_x = legend_bullet_x + 10
-    legend_start_y = cy - 14
+    if legend_side == "right":
+        legend_bullet_x = cx + radius + 30
+        legend_text_x = legend_bullet_x + 12
+        legend_anchor = "start"
+    else:
+        legend_bullet_x = cx - radius - 30
+        legend_text_x = legend_bullet_x - 12
+        legend_anchor = "end"
+    legend_start_y = cy - 20
     for i, (label, value) in enumerate(data):
         if value <= 0:
             continue
@@ -124,7 +130,7 @@ def donut_svg(
         )
         legend.append(
             f'<circle cx="{legend_bullet_x}" cy="{legend_start_y + i * 18}" r="4" fill="{color}"/>'
-            f'<text class="legend" x="{legend_text_x}" y="{legend_start_y + 4 + i * 18}">{escape(label)} {percentage(value, total)}</text>'
+            f'<text class="legend" x="{legend_text_x}" y="{legend_start_y + 4 + i * 18}" text-anchor="{legend_anchor}">{escape(label)} {percentage(value, total)}</text>'
         )
         offset += seg
 
@@ -172,17 +178,17 @@ def build_svg(
 
     stats_svg = "\n  ".join(stat_tiles)
     donuts_svg = "\n  ".join(donuts)
-    breakdown_section = "Private Work Breakdown" if private_mode else "Project Breakdown"
+    breakdown_section = "Project Breakdown"
     tip_line = (
         ""
         if private_mode
-        else '  <text class="muted" x="36" y="638">Tip: add PRIVATE_STATS_TOKEN to include anonymized private-work aggregates.</text>\n'
+        else '  <text class="muted" x="36" y="638">Tip: add a stats token secret to include additional aggregates.</text>\n'
     )
 
     return (
         f'<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">\n'
         f'  <title id="title">GitHub profile stats for {escape(name)}</title>\n'
-        '  <desc id="desc">Profile summary with anonymized private-work aggregates generated from the GitHub API.</desc>\n'
+        '  <desc id="desc">Profile summary with anonymized aggregate data generated from the GitHub API.</desc>\n'
         "  <style>\n"
         "    .bg { fill: #0b1220; stroke: #334155; stroke-width: 1; }\n"
         "    .title { fill: #e2e8f0; font: 700 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
@@ -270,7 +276,7 @@ def main() -> int:
     stats = [
         ("Followers", n(int(user.get("followers", 0) or 0))),
         ("Public Repos", n(len(public_repos))),
-        ("Private Repos", n(len(private_repos))),
+        ("Internal Repos", n(len(private_repos))),
         ("Touched 30d", n(private_touched_30 if has_private_data else repo_recent_updates)),
         ("Total Stars", n(total_stars)),
     ]
