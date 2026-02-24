@@ -137,8 +137,10 @@ def build_svg(
     donut_sets: list[tuple[str, list[tuple[str, int]]]],
     private_mode: bool,
 ) -> str:
-    width = 760
-    height = 660
+    canvas_width = 760
+    canvas_height = 660
+    output_width = 320
+    output_height = 278
     tile_y = 78
     tile_h = 78
     section_donut_y = 198
@@ -178,7 +180,7 @@ def build_svg(
     )
 
     return (
-        f'<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">\n'
+        f'<svg width="{output_width}" height="{output_height}" viewBox="0 0 {canvas_width} {canvas_height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">\n'
         f'  <title id="title">GitHub profile stats for {escape(name)}</title>\n'
         '  <desc id="desc">Profile summary with anonymized aggregate data generated from the GitHub API.</desc>\n'
         "  <style>\n"
@@ -193,7 +195,7 @@ def build_svg(
         "    .donut-total { fill: #f8fafc; font: 700 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: middle; }\n"
         "    .muted { fill: #64748b; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
         "  </style>\n"
-        f'  <rect class="bg" x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="14"/>\n'
+        f'  <rect class="bg" x="0.5" y="0.5" width="{canvas_width - 1}" height="{canvas_height - 1}" rx="14"/>\n'
         f'  <text class="title" x="36" y="52">{escape(name)} - GitHub Stats</text>\n'
         f"  <text class=\"section\" x=\"36\" y=\"{section_donut_y}\">{breakdown_section}</text>\n"
         f"  {stats_svg}\n"
