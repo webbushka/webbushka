@@ -24,21 +24,21 @@
   <text class="tile-label" x="46" y="104">Status</text>
   <text class="tile-value" x="46" y="134">Pending first run</text>
 
-  <text class="donut-title" x="210" y="225">Language Mix</text>
-  <circle cx="210" cy="285" r="42" fill="none" stroke="#22d3ee" stroke-width="13"/>
-  <circle cx="282" cy="265" r="4" fill="#22d3ee"/><text class="legend" x="294" y="269">JS 40%</text>
+  <text class="donut-title" x="160" y="225">Language Mix</text>
+  <circle cx="160" cy="285" r="42" fill="none" stroke="#22d3ee" stroke-width="13"/>
+  <circle cx="226" cy="265" r="4" fill="#22d3ee"/><text class="legend" x="238" y="269">JS 40%</text>
 
-  <text class="donut-title" x="550" y="225">Original vs Forked</text>
-  <circle cx="550" cy="285" r="42" fill="none" stroke="#34d399" stroke-width="13"/>
-  <circle cx="478" cy="265" r="4" fill="#34d399"/><text class="legend" x="466" y="269" text-anchor="end">Original 80%</text>
+  <text class="donut-title" x="430" y="225">Original vs Forked</text>
+  <circle cx="430" cy="285" r="42" fill="none" stroke="#34d399" stroke-width="13"/>
+  <circle cx="496" cy="265" r="4" fill="#34d399"/><text class="legend" x="508" y="269">Original 80%</text>
 
-  <text class="donut-title" x="210" y="425">Active in 90 Days</text>
-  <circle cx="210" cy="485" r="42" fill="none" stroke="#f59e0b" stroke-width="13"/>
-  <circle cx="282" cy="465" r="4" fill="#f59e0b"/><text class="legend" x="294" y="469">Updated 65%</text>
+  <text class="donut-title" x="160" y="425">Active in 90 Days</text>
+  <circle cx="160" cy="485" r="42" fill="none" stroke="#f59e0b" stroke-width="13"/>
+  <circle cx="226" cy="465" r="4" fill="#f59e0b"/><text class="legend" x="238" y="469">Updated 65%</text>
 
-  <text class="donut-title" x="550" y="425">Archived vs Active</text>
-  <circle cx="550" cy="485" r="42" fill="none" stroke="#a78bfa" stroke-width="13"/>
-  <circle cx="478" cy="465" r="4" fill="#a78bfa"/><text class="legend" x="466" y="469" text-anchor="end">Active 92%</text>
+  <text class="donut-title" x="430" y="425">Archived vs Active</text>
+  <circle cx="430" cy="485" r="42" fill="none" stroke="#a78bfa" stroke-width="13"/>
+  <circle cx="496" cy="465" r="4" fill="#a78bfa"/><text class="legend" x="508" y="469">Active 92%</text>
 
   <text class="muted" x="36" y="638">Set a stats token secret to enable additional aggregates.</text>
 </svg>

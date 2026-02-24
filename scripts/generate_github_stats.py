@@ -94,7 +94,6 @@ def donut_svg(
     colors: list[str],
     radius: int = 42,
     width: int = 13,
-    legend_side: str = "right",
 ) -> tuple[str, str]:
     total = sum(v for _, v in data)
     if total <= 0:
@@ -108,14 +107,8 @@ def donut_svg(
     offset = 0.0
     arcs: list[str] = []
     legend: list[str] = []
-    if legend_side == "right":
-        legend_bullet_x = cx + radius + 30
-        legend_text_x = legend_bullet_x + 12
-        legend_anchor = "start"
-    else:
-        legend_bullet_x = cx - radius - 30
-        legend_text_x = legend_bullet_x - 12
-        legend_anchor = "end"
+    legend_bullet_x = cx + radius + 24
+    legend_text_x = legend_bullet_x + 12
     legend_start_y = cy - 20
     for i, (label, value) in enumerate(data):
         if value <= 0:
@@ -130,7 +123,7 @@ def donut_svg(
         )
         legend.append(
             f'<circle cx="{legend_bullet_x}" cy="{legend_start_y + i * 18}" r="4" fill="{color}"/>'
-            f'<text class="legend" x="{legend_text_x}" y="{legend_start_y + 4 + i * 18}" text-anchor="{legend_anchor}">{escape(label)} {percentage(value, total)}</text>'
+            f'<text class="legend" x="{legend_text_x}" y="{legend_start_y + 4 + i * 18}" text-anchor="start">{escape(label)} {percentage(value, total)}</text>'
         )
         offset += seg
 
@@ -163,11 +156,10 @@ def build_svg(
 
     donuts: list[str] = []
     if donut_sets:
-        positions = [(210, 285), (550, 285), (210, 485), (550, 485)]
+        positions = [(160, 285), (430, 285), (160, 485), (430, 485)]
         for i, (title, data) in enumerate(donut_sets[:4]):
             cx, cy = positions[i]
-            legend_side = "right" if i % 2 == 0 else "left"
-            donut_arcs, donut_legend = donut_svg(cx, cy, data, PALETTE, legend_side=legend_side)
+            donut_arcs, donut_legend = donut_svg(cx, cy, data, PALETTE)
             donuts.append(
                 f'<text class="donut-title" x="{cx}" y="{cy - 60}">{escape(title)}</text>'
                 f"{donut_arcs}"
