@@ -87,7 +87,14 @@ def iso_to_datetime(value: str | None) -> datetime | None:
         return None
 
 
-def donut_svg(cx: int, cy: int, data: list[tuple[str, int]], colors: list[str], radius: int = 42, width: int = 13) -> tuple[str, str]:
+def donut_svg(
+    cx: int,
+    cy: int,
+    data: list[tuple[str, int]],
+    colors: list[str],
+    radius: int = 42,
+    width: int = 13,
+) -> tuple[str, str]:
     total = sum(v for _, v in data)
     if total <= 0:
         empty = (
@@ -124,18 +131,14 @@ def donut_svg(cx: int, cy: int, data: list[tuple[str, int]], colors: list[str], 
 def build_svg(
     name: str,
     stats: list[tuple[str, str]],
-    languages: list[tuple[str, int]],
     donut_sets: list[tuple[str, list[tuple[str, int]]]],
     private_mode: bool,
 ) -> str:
     width = 760
-    height = 560
+    height = 660
     tile_y = 78
     tile_h = 78
-    section_lang_y = 188
-    lang_bar_y = 214
-    lang_legend_start = 250
-    section_repo_y = 390
+    section_donut_y = 198
 
     stat_tiles: list[str] = []
     tile_w = 124
@@ -148,52 +151,27 @@ def build_svg(
             f'<text class="tile-value" x="{x + 10}" y="{tile_y + 56}">{escape(value)}</text>'
         )
 
-    lang_total = sum(count for _, count in languages)
-    lang_rows: list[str] = []
-    lang_x = 36
-    lang_y = lang_bar_y
-    lang_w = width - 72
-    cursor = 0.0
-    for i, (language, count) in enumerate(languages[:6]):
-        color = PALETTE[i % len(PALETTE)]
-        segment_w = (count / lang_total) * lang_w if lang_total else 0
-        lang_rows.append(
-            f'<rect x="{lang_x + cursor:.2f}" y="{lang_y}" width="{segment_w:.2f}" height="20" fill="{color}" rx="2"/>'
-        )
-        legend_y = lang_legend_start + i * 22
-        lang_rows.append(
-            f'<circle cx="{lang_x + 8}" cy="{legend_y - 4}" r="5" fill="{color}"/>'
-            f'<text class="legend" x="{lang_x + 22}" y="{legend_y}">{escape(language)} - {percentage(count, lang_total)}</text>'
-        )
-        cursor += segment_w
-
-    if not languages:
-        lang_rows.append('<text class="muted" x="36" y="266">No language data available yet.</text>')
-
     donuts: list[str] = []
     if donut_sets:
-        centers = [150, 380, 610]
-        for i, (title, data) in enumerate(donut_sets[:3]):
-            cx = centers[i]
-            cy = 450
+        positions = [(210, 285), (550, 285), (210, 485), (550, 485)]
+        for i, (title, data) in enumerate(donut_sets[:4]):
+            cx, cy = positions[i]
             donut_arcs, donut_legend = donut_svg(cx, cy, data, PALETTE)
             donuts.append(
-                f'<text class="donut-title" x="{cx}" y="412">{escape(title)}</text>'
+                f'<text class="donut-title" x="{cx}" y="{cy - 48}">{escape(title)}</text>'
                 f"{donut_arcs}"
                 f"{donut_legend}"
             )
     else:
-        donuts.append('<text class="muted" x="36" y="438">No breakdown data available yet.</text>')
+        donuts.append('<text class="muted" x="36" y="310">No breakdown data available yet.</text>')
 
     stats_svg = "\n  ".join(stat_tiles)
-    languages_svg = "\n  ".join(lang_rows)
     donuts_svg = "\n  ".join(donuts)
-    language_section = "Private Language Mix" if private_mode else "Language Breakdown"
     breakdown_section = "Private Work Breakdown" if private_mode else "Project Breakdown"
     tip_line = (
         ""
         if private_mode
-        else '  <text class="muted" x="36" y="538">Tip: add PRIVATE_STATS_TOKEN to include anonymized private-work aggregates.</text>\n'
+        else '  <text class="muted" x="36" y="638">Tip: add PRIVATE_STATS_TOKEN to include anonymized private-work aggregates.</text>\n'
     )
 
     return (
@@ -207,17 +185,15 @@ def build_svg(
         "    .tile { fill: #111b2f; stroke: #334155; stroke-width: 1; }\n"
         "    .tile-label { fill: #94a3b8; font: 600 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }\n"
         "    .tile-value { fill: #f8fafc; font: 700 23px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
-        "    .legend { fill: #cbd5e1; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
+        "    .legend { fill: #cbd5e1; font: 600 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
         "    .donut-title { fill: #e2e8f0; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: middle; }\n"
         "    .donut-total { fill: #f8fafc; font: 700 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: middle; }\n"
         "    .muted { fill: #64748b; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
         "  </style>\n"
         f'  <rect class="bg" x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="14"/>\n'
         f'  <text class="title" x="36" y="52">{escape(name)} - GitHub Stats</text>\n'
-        f"  <text class=\"section\" x=\"36\" y=\"{section_lang_y}\">{language_section}</text>\n"
-        f"  <text class=\"section\" x=\"36\" y=\"{section_repo_y}\">{breakdown_section}</text>\n"
+        f"  <text class=\"section\" x=\"36\" y=\"{section_donut_y}\">{breakdown_section}</text>\n"
         f"  {stats_svg}\n"
-        f"  {languages_svg}\n"
         f"  {donuts_svg}\n"
         f"{tip_line}"
         "</svg>\n"
@@ -250,7 +226,6 @@ def main() -> int:
 
     ninety_days_ago = datetime.now(timezone.utc) - timedelta(days=90)
 
-    repo_open_issues = 0
     repo_recent_updates = 0
     forked_repos = 0
     private_touched_30 = 0
@@ -260,8 +235,6 @@ def main() -> int:
     for repo in breakdown_source:
         if bool(repo.get("fork", False)):
             forked_repos += 1
-        if int(repo.get("open_issues_count", 0) or 0) > 0:
-            repo_open_issues += 1
         pushed_at = iso_to_datetime(repo.get("pushed_at"))
         if pushed_at and pushed_at >= ninety_days_ago:
             repo_recent_updates += 1
@@ -271,12 +244,22 @@ def main() -> int:
     total_repos = len(breakdown_source)
     original_repos = max(total_repos - forked_repos, 0)
     stale_repos = max(total_repos - repo_recent_updates, 0)
-    no_issue_repos = max(total_repos - repo_open_issues, 0)
+
+    archived_repos = sum(1 for repo in breakdown_source if bool(repo.get("archived", False)))
+    active_repos = max(total_repos - archived_repos, 0)
+
+    lang_total = sum(count for _, count in top_languages)
+    language_donut: list[tuple[str, int]] = top_languages[:4]
+    if lang_total > 0:
+        other = lang_total - sum(count for _, count in language_donut)
+        if other > 0:
+            language_donut.append(("Other", other))
 
     donut_sets = [
+        ("Language Mix", language_donut),
         ("Original vs Forked", [("Original", original_repos), ("Forked", forked_repos)]),
         ("Active in 90 Days", [("Updated", repo_recent_updates), ("Older", stale_repos)]),
-        ("Open Issues", [("With Issues", repo_open_issues), ("No Issues", no_issue_repos)]),
+        ("Archived vs Active", [("Archived", archived_repos), ("Active", active_repos)]),
     ]
 
     stats = [
@@ -288,7 +271,7 @@ def main() -> int:
     ]
 
     display_name = user.get("name") or username
-    svg = build_svg(str(display_name), stats, top_languages, donut_sets, has_private_data)
+    svg = build_svg(str(display_name), stats, donut_sets, has_private_data)
 
     os.makedirs("assets", exist_ok=True)
     output_path = "assets/github-stats.svg"
