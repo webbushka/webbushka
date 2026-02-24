@@ -1,32 +1,41 @@
-<svg width="600" height="280" viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
-  <title id="title">GitHub profile stats for AJ Webb</title>
-  <desc id="desc">Snapshot of profile and repository stats generated from the GitHub API.</desc>
+<svg width="880" height="620" viewBox="0 0 880 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub profile stats</title>
+  <desc id="desc">Temporary placeholder until the stats workflow runs.</desc>
   <style>
     .bg { fill: #0b1220; stroke: #334155; stroke-width: 1; }
-    .title { fill: #e2e8f0; font: 700 28px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-    .label { fill: #94a3b8; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; }
-    .value { fill: #f8fafc; font: 700 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .title { fill: #e2e8f0; font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .section { fill: #cbd5e1; font: 700 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+    .tile { fill: #111b2f; stroke: #334155; stroke-width: 1; }
+    .tile-label { fill: #94a3b8; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }
+    .tile-value { fill: #f8fafc; font: 700 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .muted { fill: #64748b; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .bar-bg { fill: #1e293b; }
+    .bar { fill: #22d3ee; }
   </style>
-  <rect class="bg" x="0.5" y="0.5" width="599" height="279" rx="14"/>
-  <text class="title" x="36" y="52">AJ Webb - GitHub Stats</text>
-  <g transform="translate(36,88)">
-  <text class="label" x="0" y="0">Followers</text>
-  <text class="value" x="0" y="30">67</text>
-</g>
-<g transform="translate(308,88)">
-  <text class="label" x="0" y="0">Following</text>
-  <text class="value" x="0" y="30">98</text>
-</g>
-<g transform="translate(36,144)">
-  <text class="label" x="0" y="0">Public Repos</text>
-  <text class="value" x="0" y="30">106</text>
-</g>
-<g transform="translate(308,144)">
-  <text class="label" x="0" y="0">Total Stars</text>
-  <text class="value" x="0" y="30">159</text>
-</g>
-<g transform="translate(36,200)">
-  <text class="label" x="0" y="0">Total Forks</text>
-  <text class="value" x="0" y="30">66</text>
-</g>
+  <rect class="bg" x="0.5" y="0.5" width="879" height="619" rx="14"/>
+  <text class="title" x="36" y="52">GitHub Stats</text>
+
+  <rect class="tile" x="36" y="84" width="152" height="84" rx="10"/>
+  <rect class="tile" x="200" y="84" width="152" height="84" rx="10"/>
+  <rect class="tile" x="364" y="84" width="152" height="84" rx="10"/>
+  <rect class="tile" x="528" y="84" width="152" height="84" rx="10"/>
+  <rect class="tile" x="692" y="84" width="152" height="84" rx="10"/>
+  <text class="tile-label" x="48" y="112">Status</text>
+  <text class="tile-value" x="48" y="144">Pending first run</text>
+
+  <text class="section" x="36" y="210">Language Breakdown</text>
+  <rect class="bar-bg" x="36" y="236" width="808" height="20" rx="2"/>
+  <rect class="bar" x="36" y="236" width="180" height="20" rx="2"/>
+  <rect x="216" y="236" width="130" height="20" fill="#34d399" rx="2"/>
+  <rect x="346" y="236" width="95" height="20" fill="#f59e0b" rx="2"/>
+  <text class="muted" x="36" y="300">Live language distribution appears after workflow execution.</text>
+
+  <text class="section" x="36" y="404">Top Repositories by Stars</text>
+  <rect class="bar-bg" x="250" y="416" width="560" height="14" rx="7"/>
+  <rect class="bar" x="250" y="416" width="360" height="14" rx="7"/>
+  <rect class="bar-bg" x="250" y="450" width="560" height="14" rx="7"/>
+  <rect class="bar" x="250" y="450" width="260" height="14" rx="7"/>
+  <rect class="bar-bg" x="250" y="484" width="560" height="14" rx="7"/>
+  <rect class="bar" x="250" y="484" width="170" height="14" rx="7"/>
+  <text class="muted" x="36" y="560">Workflow: .github/workflows/update-profile-stats.yml</text>
 </svg>

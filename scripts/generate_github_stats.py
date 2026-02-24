@@ -6,8 +6,8 @@ from html import escape
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-
 API_BASE = "https://api.github.com"
+PALETTE = ["#22d3ee", "#34d399", "#f59e0b", "#f43f5e", "#a78bfa", "#60a5fa"]
 
 
 def fetch_json(url: str, token: str | None) -> dict | list:
@@ -37,7 +37,6 @@ def fetch_user(username: str, token: str | None) -> dict:
 def fetch_repos(username: str, token: str | None) -> list[dict]:
     repos: list[dict] = []
     page = 1
-
     while True:
         data = fetch_json(
             f"{API_BASE}/users/{username}/repos?per_page=100&type=owner&sort=updated&page={page}",
@@ -49,7 +48,6 @@ def fetch_repos(username: str, token: str | None) -> list[dict]:
             break
         repos.extend(repo for repo in data if isinstance(repo, dict))
         page += 1
-
     return repos
 
 
@@ -57,41 +55,98 @@ def n(value: int) -> str:
     return f"{value:,}"
 
 
-def build_svg(name: str, stats: list[tuple[str, str]]) -> str:
-    width = 600
-    row_height = 56
-    top = 88
-    left = 36
-    right = width // 2 + 8
-    height = top + ((len(stats) + 1) // 2) * row_height + 24
+def percentage(part: int, total: int) -> str:
+    if total <= 0:
+        return "0%"
+    return f"{(part / total) * 100:.1f}%"
 
-    rows = []
+
+def build_svg(
+    name: str,
+    stats: list[tuple[str, str]],
+    languages: list[tuple[str, int]],
+    top_repos: list[tuple[str, int]],
+) -> str:
+    width = 880
+    height = 620
+
+    stat_tiles: list[str] = []
+    tile_w = 152
     for i, (label, value) in enumerate(stats):
-        col_x = left if i % 2 == 0 else right
-        row_y = top + (i // 2) * row_height
-        rows.append(
-            f'''<g transform="translate({col_x},{row_y})">\n'''
-            f'''  <text class="label" x="0" y="0">{escape(label)}</text>\n'''
-            f'''  <text class="value" x="0" y="30">{escape(value)}</text>\n'''
-            f"</g>"
+        x = 36 + i * (tile_w + 12)
+        stat_tiles.append(
+            f'<rect class="tile" x="{x}" y="84" width="{tile_w}" height="84" rx="10"/>'
+            f'<text class="tile-label" x="{x + 12}" y="112">{escape(label)}</text>'
+            f'<text class="tile-value" x="{x + 12}" y="144">{escape(value)}</text>'
         )
 
-    stats_svg = "\n".join(rows)
+    lang_total = sum(count for _, count in languages)
+    lang_rows: list[str] = []
+    lang_x = 36
+    lang_y = 236
+    lang_w = width - 72
+    cursor = 0.0
+    for i, (language, count) in enumerate(languages[:6]):
+        color = PALETTE[i % len(PALETTE)]
+        segment_w = (count / lang_total) * lang_w if lang_total else 0
+        lang_rows.append(
+            f'<rect x="{lang_x + cursor:.2f}" y="{lang_y}" width="{segment_w:.2f}" height="20" fill="{color}" rx="2"/>'
+        )
+        legend_y = 276 + i * 22
+        lang_rows.append(
+            f'<circle cx="{lang_x + 8}" cy="{legend_y - 4}" r="5" fill="{color}"/>'
+            f'<text class="legend" x="{lang_x + 22}" y="{legend_y}">{escape(language)} - {percentage(count, lang_total)}</text>'
+        )
+        cursor += segment_w
 
-    rect_height = height - 1
+    if not languages:
+        lang_rows.append('<text class="muted" x="36" y="266">No language data available yet.</text>')
+
+    bars: list[str] = []
+    if top_repos:
+        max_stars = max(stars for _, stars in top_repos) or 1
+        for i, (repo, stars) in enumerate(top_repos):
+            y = 430 + i * 34
+            label = repo if len(repo) <= 26 else f"{repo[:23]}..."
+            bar_w = (stars / max_stars) * 560
+            bars.append(
+                f'<text class="repo" x="36" y="{y}">{escape(label)}</text>'
+                f'<rect class="bar-bg" x="250" y="{y - 14}" width="560" height="14" rx="7"/>'
+                f'<rect class="bar" x="250" y="{y - 14}" width="{bar_w:.2f}" height="14" rx="7"/>'
+                f'<text class="bar-value" x="820" y="{y}">{n(stars)}</text>'
+            )
+    else:
+        bars.append('<text class="muted" x="36" y="440">No starred repositories yet.</text>')
+
+    stats_svg = "\n  ".join(stat_tiles)
+    languages_svg = "\n  ".join(lang_rows)
+    bars_svg = "\n  ".join(bars)
+
     return (
         f'<svg width="{width}" height="{height}" viewBox="0 0 {width} {height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">\n'
         f'  <title id="title">GitHub profile stats for {escape(name)}</title>\n'
-        '  <desc id="desc">Snapshot of profile and repository stats generated from the GitHub API.</desc>\n'
+        '  <desc id="desc">Profile summary with language and top repository charts generated from the GitHub API.</desc>\n'
         "  <style>\n"
         "    .bg { fill: #0b1220; stroke: #334155; stroke-width: 1; }\n"
-        "    .title { fill: #e2e8f0; font: 700 28px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
-        "    .label { fill: #94a3b8; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.02em; text-transform: uppercase; }\n"
-        "    .value { fill: #f8fafc; font: 700 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
+        "    .title { fill: #e2e8f0; font: 700 30px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
+        "    .section { fill: #cbd5e1; font: 700 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }\n"
+        "    .tile { fill: #111b2f; stroke: #334155; stroke-width: 1; }\n"
+        "    .tile-label { fill: #94a3b8; font: 600 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; letter-spacing: 0.03em; text-transform: uppercase; }\n"
+        "    .tile-value { fill: #f8fafc; font: 700 26px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
+        "    .legend { fill: #cbd5e1; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
+        "    .repo { fill: #e2e8f0; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
+        "    .bar-bg { fill: #1e293b; }\n"
+        "    .bar { fill: #22d3ee; }\n"
+        "    .bar-value { fill: #e2e8f0; font: 600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; text-anchor: end; }\n"
+        "    .muted { fill: #64748b; font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }\n"
         "  </style>\n"
-        f'  <rect class="bg" x="0.5" y="0.5" width="599" height="{rect_height}" rx="14"/>\n'
+        f'  <rect class="bg" x="0.5" y="0.5" width="{width - 1}" height="{height - 1}" rx="14"/>\n'
         f'  <text class="title" x="36" y="52">{escape(name)} - GitHub Stats</text>\n'
+        "  <text class=\"section\" x=\"36\" y=\"210\">Language Breakdown</text>\n"
+        "  <text class=\"section\" x=\"36\" y=\"404\">Top Repositories by Stars</text>\n"
         f"  {stats_svg}\n"
+        f"  {languages_svg}\n"
+        f"  {bars_svg}\n"
         "</svg>\n"
     )
 
@@ -103,12 +158,28 @@ def main() -> int:
         return 2
 
     token = os.getenv("GITHUB_TOKEN")
-
     user = fetch_user(username, token)
     repos = fetch_repos(username, token)
 
     total_stars = sum(int(repo.get("stargazers_count", 0) or 0) for repo in repos)
     total_forks = sum(int(repo.get("forks_count", 0) or 0) for repo in repos)
+
+    language_counts: dict[str, int] = {}
+    for repo in repos:
+        language = repo.get("language")
+        if isinstance(language, str) and language:
+            language_counts[language] = language_counts.get(language, 0) + 1
+
+    top_languages = sorted(language_counts.items(), key=lambda item: item[1], reverse=True)[:6]
+
+    repo_stars: list[tuple[str, int]] = []
+    for repo in repos:
+        name = repo.get("name")
+        stars = int(repo.get("stargazers_count", 0) or 0)
+        if isinstance(name, str):
+            repo_stars.append((name, stars))
+
+    top_repos = sorted(repo_stars, key=lambda item: item[1], reverse=True)[:5]
 
     stats = [
         ("Followers", n(int(user.get("followers", 0) or 0))),
@@ -119,7 +190,7 @@ def main() -> int:
     ]
 
     display_name = user.get("name") or username
-    svg = build_svg(str(display_name), stats)
+    svg = build_svg(str(display_name), stats, top_languages, top_repos)
 
     os.makedirs("assets", exist_ok=True)
     output_path = "assets/github-stats.svg"
