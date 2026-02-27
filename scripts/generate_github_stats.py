@@ -103,6 +103,15 @@ def iso_to_datetime(value: str | None) -> datetime | None:
         return None
 
 
+def latest_activity_at(repo: dict) -> datetime | None:
+    pushed_at = iso_to_datetime(repo.get("pushed_at"))
+    updated_at = iso_to_datetime(repo.get("updated_at"))
+    candidates = [dt for dt in (pushed_at, updated_at) if dt is not None]
+    if not candidates:
+        return None
+    return max(candidates)
+
+
 def build_section(
     username: str,
     display_name: str,
@@ -134,10 +143,10 @@ def build_section(
         if bool(repo.get("archived", False)):
             archived += 1
 
-        pushed_at = iso_to_datetime(repo.get("pushed_at"))
-        if pushed_at and pushed_at >= thirty_days_ago:
+        activity_at = latest_activity_at(repo)
+        if activity_at and activity_at >= thirty_days_ago:
             touched_30 += 1
-        if pushed_at and pushed_at >= ninety_days_ago:
+        if activity_at and activity_at >= ninety_days_ago:
             touched_90 += 1
 
         language = repo.get("language")
@@ -160,7 +169,7 @@ def build_section(
     if token_present:
         source_label = "repositories you can access (public + private, including org-owned repositories)"
     else:
-        source_label = "owned repositories (public only)"
+        source_label = "owned repositories (public only; set PRIVATE_STATS_TOKEN to include private/org repositories)"
     date_str = generated_at.strftime("%Y-%m-%d")
 
     return (
@@ -219,7 +228,7 @@ def main() -> int:
         print("GITHUB_USERNAME is required", file=sys.stderr)
         return 2
 
-    token = os.getenv("PRIVATE_STATS_TOKEN") or os.getenv("GITHUB_TOKEN")
+    token = os.getenv("PRIVATE_STATS_TOKEN")
     user = fetch_user(username, token)
     repos = fetch_repos(username, token)
     display_name = str(user.get("name") or username)
