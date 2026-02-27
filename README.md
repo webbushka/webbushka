@@ -9,11 +9,9 @@ I build fast, reliable user interfaces, lead frontend architecture, and mentor t
 - Drove frontend performance optimization (code splitting, lazy loading, caching, render profiling) to improve load behavior and rendering stability in production.
 - Mentored frontend engineers and contractors through code reviews and pairing, strengthening code quality and delivery consistency.
 
-## Private Work Highlights (Auto-Generated Supporting Evidence)
-
 <!-- PRIVATE_WORK_HIGHLIGHTS:START -->
 
-## Private Work Highlights (Anonymized)
+## Work Highlights (Anonymized)
 
 Updated: pending first workflow run
 

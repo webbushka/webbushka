@@ -57,15 +57,31 @@ def fetch_repos(username: str, token: str | None) -> list[dict]:
         repos.extend(repo for repo in data if isinstance(repo, dict))
         page += 1
 
+    if token:
+        # With an authenticated token, keep all repos returned by /user/repos so
+        # org-owned private repos are included in aggregates.
+        deduped: list[dict] = []
+        seen: set[str] = set()
+        for repo in repos:
+            full_name = repo.get("full_name")
+            if isinstance(full_name, str) and full_name:
+                key = full_name
+            else:
+                key = str(repo.get("id", ""))
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append(repo)
+        return deduped
+
+    # Public API fallback: keep output focused on the requested username.
     filtered: list[dict] = []
     for repo in repos:
         owner = repo.get("owner")
         owner_login = owner.get("login") if isinstance(owner, dict) else None
         if owner_login == username:
             filtered.append(repo)
-    if filtered:
-        return filtered
-    return repos
+    return filtered if filtered else repos
 
 
 def n(value: int) -> str:
@@ -93,10 +109,11 @@ def build_section(
     user: dict,
     repos: list[dict],
     generated_at: datetime,
+    token_present: bool,
 ) -> str:
     public_repos = [repo for repo in repos if not bool(repo.get("private", False))]
     private_repos = [repo for repo in repos if bool(repo.get("private", False))]
-    source_repos = private_repos if private_repos else repos
+    source_repos = repos
 
     total_stars = sum(int(repo.get("stargazers_count", 0) or 0) for repo in public_repos)
     followers = int(user.get("followers", 0) or 0)
@@ -140,12 +157,15 @@ def build_section(
     else:
         language_mix = "No dominant language signal yet"
 
-    source_label = "private repositories" if private_repos else "owned repositories (public only)"
+    if token_present:
+        source_label = "repositories you can access (public + private, including org-owned repositories)"
+    else:
+        source_label = "owned repositories (public only)"
     date_str = generated_at.strftime("%Y-%m-%d")
 
     return (
         f"{SECTION_START}\n"
-        "## Private Work Highlights (Anonymized)\n\n"
+        "## Work Highlights (Anonymized)\n\n"
         f"Updated: {date_str} UTC\n\n"
         f"- Scope: Aggregated from {source_label} for **{display_name}** (`@{username}`).\n"
         f"- Repositories touched in last 30 days: **{n(touched_30)}**\n"
@@ -153,7 +173,8 @@ def build_section(
         f"- Original vs forked repos: **{n(original)} / {n(forked)}**\n"
         f"- Active vs archived repos: **{n(active)} / {n(archived)}**\n"
         f"- Language mix (top 5): {language_mix}\n"
-        f"- Public footprint: **{n(len(public_repos))}** public repos, **{n(total_stars)}** stars, **{n(followers)}** followers\n\n"
+        f"- Repo footprint: **{n(len(public_repos))}** public repos, **{n(len(private_repos))}** private repos\n"
+        f"- Public stars/followers: **{n(total_stars)}** stars, **{n(followers)}** followers\n\n"
         "_This section is auto-generated daily from GitHub API aggregates and intentionally excludes repo names, PR titles, and code details._\n"
         f"{SECTION_END}\n"
     )
@@ -204,7 +225,9 @@ def main() -> int:
     display_name = str(user.get("name") or username)
     generated_at = datetime.now(timezone.utc)
 
-    section = build_section(username, display_name, user, repos, generated_at)
+    section = build_section(
+        username, display_name, user, repos, generated_at, token_present=bool(token)
+    )
     changed = upsert_readme_section(README_PATH, section)
     if changed:
         print(f"Updated {README_PATH}")
