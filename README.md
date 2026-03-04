@@ -16,12 +16,11 @@ I build fast, reliable user interfaces, lead frontend architecture, and mentor t
 Updated: pending first workflow run
 
 - Scope: Waiting for automated GitHub API snapshot.
-- Repositories touched in last 30 days: **-**
-- Repositories touched in last 90 days: **-**
 - Original vs forked repos: **- / -**
 - Active vs archived repos: **- / -**
 - Language mix (top 5): -
-- Public footprint: **-** public repos, **-** stars, **-** followers
+- Repo footprint: **-** public repos, **-** private repos
+- Public stars/followers: **-** stars, **-** followers
 
 _This section is auto-generated daily from GitHub API aggregates and intentionally excludes repo names, PR titles, and code details._
 
