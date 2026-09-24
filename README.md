@@ -12,14 +12,14 @@ I build fast, reliable user interfaces, lead frontend architecture, and mentor t
 <!-- PRIVATE_WORK_HIGHLIGHTS:START -->
 ## Work Highlights (Anonymized)
 
-Updated: 2026-09-23 UTC
+Updated: 2026-09-24 UTC
 
 - Scope: aggregated from repositories visible to your configured token (public + private, including org-owned where permitted) for **AJ Webb** (`@webbushka`).
-- Original vs forked repos: **78 / 67**
-- Active vs archived repos: **144 / 1**
-- Language mix (top 5): JavaScript (58.7%), HTML (15.6%), CSS (14.7%), TypeScript (8.3%), Python (2.8%)
-- Repo footprint: **120** public repos, **25** private repos
-- Public stars/followers: **159** stars, **68** followers
+- Original vs forked repos: **86 / 67**
+- Active vs archived repos: **152 / 1**
+- Language mix (top 5): JavaScript (57.7%), HTML (16.2%), CSS (15.3%), TypeScript (8.1%), Python (2.7%)
+- Repo footprint: **128** public repos, **25** private repos
+- Public stars/followers: **168** stars, **68** followers
 
 _This section is auto-generated daily from GitHub API aggregates and intentionally excludes repo names, PR titles, and code details._
 <!-- PRIVATE_WORK_HIGHLIGHTS:END -->
